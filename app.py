@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium_stealth import stealth
@@ -27,9 +27,10 @@ def process():
         
         revlist = []
     
+        service = Service(executable_path='/Users/luke/Documents/Projects/first-chrome-extension/chromedriver')
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')           # option so that the window doesn't pop up
-        driver = webdriver.Chrome('/Users/luke/Documents/Projects/first-chrome-extension/chromedriver', options = options) # change filepath to downloaded webdriver
+        driver = webdriver.Chrome(service=service, options = options) # change filepath to downloaded webdriver
 
         # use selenium stealth here to bypass bot detection reliably
         stealth(driver,
@@ -45,11 +46,11 @@ def process():
         driver.get('https://www.amazon.com/dp/' + asin)
         
         # get info about the product
-        title = driver.find_element_by_id('title')
+        title = driver.find_element(By.ID, 'title')
         titlestr = title.text
-        rating = driver.find_element_by_id('acrPopover')
+        rating = driver.find_element(By.ID, 'acrPopover')
         ratingstr = rating.text
-        cost = driver.find_element_by_class_name('a-price-whole')
+        cost = driver.find_element(By.CLASS_NAME, 'a-price-whole')
         coststr = cost.text
         
         #print('Title: ' + titlestr)
@@ -61,7 +62,7 @@ def process():
         for i in range(1, pages + 1):
             driver.get('https://www.amazon.com/product-reviews/' + asin + '?pageNumber=' + str(i))
             #time.sleep(1)
-            reviews = driver.find_elements_by_class_name('review-text-content')
+            reviews = driver.find_elements(By.CLASS_NAME, 'review-text-content')
             for review in reviews:
                 revlist.append(review.text)
         driver.quit()
