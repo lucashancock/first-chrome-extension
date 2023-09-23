@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/results.css">
+    <title>Amazon ASIN Reviews</title>
+</head>
+<body>
+    <a href="/" class="back-link">&#8592; Back</a>
+    <h2>Product Details</h2>
+    <table border="1">
+        <tr>
+            <th>ASIN</th>
+            <td>{{ asin }}</td>
+        </tr>
+        <tr>
+            <th>Product Title</th>
+            <td>{{ product_title }}</td>
+        </tr>
+        <tr>
+            <th>Rating</th>
+            <td>{{ rating }} out of 5 stars</td> 
+        </tr>
+        <tr>
+            <th>Cost</th>
+            <td>${{ cost }}</td>
+        </tr>
+    </table>
+    <h2>Amazon ASIN Reviews</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Review</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in reviews %}
+                <tr>
+                    <td>{{ review }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

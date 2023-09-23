@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <title>Amazon ASIN Scraper</title>
+</head>
+<body>
+    <h1>Amazon ASIN Scraper</h1>
+    <form method="POST" action="/process">
+        <label for="asin">Enter an Amazon ASIN:</label>
+        <input type="text" id="asin" name="asin" required>
+        <button type="submit">Scrape</button>
+    </form>
+
+    <div class="loading" id="loading">
+        <img src="/static/images/loading-gif.gif" alt="Loading...">
+    </div>
+
+    <script src="/static/js/index.js"></script>
+</body>
+</html>
